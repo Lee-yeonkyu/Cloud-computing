@@ -154,6 +154,18 @@ def DeleteImg():
     delImg = ec2client.deregister_image(ImageId=selectAMI_ID)
 
 
+def TermianteInstance():
+    print("\n")
+    print("Terminate Instance\n")
+    forSelectInstance()
+    selectInstance = str(input("인스턴스 id 입력 : "))
+    ec2client.terminate_instances(
+        InstanceIds=[
+            selectInstance,
+        ]
+    )
+
+
 # 기능함수 보조
 # 간단한 인스턴스 및 / 이미지 출력 리스트 함수 구현, 메뉴화면 구성 부분
 def forSelectInstance():
