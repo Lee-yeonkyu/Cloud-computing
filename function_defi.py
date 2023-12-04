@@ -187,6 +187,60 @@ def Volume():
         print(volumme.volume_id)
 
 
+# 키페어 관리 부분
+def KeyFunction():
+    print("\n")
+    print("KeyFunction\n")
+    KeyMenu()
+    SelectNum = int(input("Select Number : "))
+    while True:
+        if SelectNum == 1:
+            PrintKeyPair()
+        elif SelectNum == 2:
+            CreateKeyPair()
+        elif SelectNum == 3:
+            DeleteKeyPair()
+        elif SelectNum == 99:
+            break
+        KeyMenu()
+        SelectNum = int(input("Select Number : "))
+
+
+def PrintKeyPair():
+    print("\n")
+    print("PrintKeyPair\n")
+    keyPairArr = keypairinfo.get("KeyPairs")
+    for KeyInfo in keyPairArr:
+        print(
+            "[KeyName] " + KeyInfo.get("KeyName"),
+            " [KeyPairId] " + KeyInfo.get("KeyPairId"),
+            " [KeyType] " + KeyInfo.get("KeyType"),
+        )
+
+
+def CreateKeyPair():
+    print("\n")
+    print("CreateKeyPair(RSA Only\n")
+    keyname = input("키 이름을 입력하세요 : ")
+    ec2client.create_key_pair(KeyName=keyname, KeyType="rsa")
+    try:
+        print(keyname + " 생성 완료")
+    except ValueError as m:
+        print(m)
+
+
+def DeleteKeyPair():
+    print("\n")
+    print("DeleteKeyPair\n")
+    KeyPairMenu()
+    DelKeyPair = input("삭제할 키페어 이름 선택 : ")
+    ec2client.delete_key_pair(KeyName=DelKeyPair)
+    try:
+        print(DelKeyPair + " 삭제 완료")
+    except ValueError as m:
+        print(m)
+
+
 # 기능함수 보조
 # 간단한 인스턴스 및 / 이미지 출력 리스트 함수 구현, 메뉴화면 구성 부분
 def forSelectInstance():
@@ -209,3 +263,18 @@ def forSelectImage():
         print("[ImageID] " + image["ImageId"], " [Name] " + image["Name"])
     print("----------------------------------------------------------\n")
     print("----------------------------------------------------------\n")
+
+
+def KeyMenu():
+    print("----------------------------------------------------------\n")
+    print("--------------------키페어 관리 메뉴----------------------\n")
+    print("1. 보유 키페어 출력          2. 키페어 생성\n")
+    print("3. 보유 키페어 삭제          99. 나가기\n")
+    print("----------------------------------------------------------\n")
+    print("----------------------------------------------------------\n")
+
+
+def KeyPairMenu():
+    print("----------------------------------------------------------\n")
+    print("---------------------키페어 리스트------------------------\n")
+    PrintKeyPair()
