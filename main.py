@@ -15,7 +15,8 @@ def MainMenu():
     print("7. reboot instance           8. list images\n")
     print("9. create image             10. delete AMI Img\n")
     print("11.copy Image               12. terminate instance\n")
-    print("13.print Volume ID          99. quit\n")
+    print("13.print Volume ID          14.Print InstanceSecurity\n")
+    print("                            99. quit\n")
     print("--------------------------------------------------\n")
     print("--------------------------------------------------\n")
 
@@ -57,6 +58,8 @@ while True:
         function_defi.TermianteInstance()
     elif Number == 13:
         function_defi.Volume()
+    elif Number == 14:
+        function_defi.Security()
     elif Number == 99:
         break
     MainMenu()

@@ -166,15 +166,25 @@ def TermianteInstance():
     )
 
 
+def Security():
+    response = ec2client.describe_instances()
+    for reservation in response["Reservations"]:
+        for instance in reservation["Instances"]:
+            print("Instance: " + instance["InstanceId"])
+            for securityGroup in instance["SecurityGroups"]:
+                print(
+                    "SG ID: {}, Name: {}".format(
+                        securityGroup["GroupId"], securityGroup["GroupName"]
+                    )
+                )
+
+
 # 볼륨 ID 출력
 def Volume():
     print("\n")
     print("Print Volume ID\n")
     for volumme in ec2.volumes.all():
         print(volumme.volume_id)
-
-
-# 볼륨 관리 함수 끝
 
 
 # 기능함수 보조
