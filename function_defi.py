@@ -166,6 +166,17 @@ def TermianteInstance():
     )
 
 
+# 볼륨 ID 출력
+def Volume():
+    print("\n")
+    print("Print Volume ID\n")
+    for volumme in ec2.volumes.all():
+        print(volumme.volume_id)
+
+
+# 볼륨 관리 함수 끝
+
+
 # 기능함수 보조
 # 간단한 인스턴스 및 / 이미지 출력 리스트 함수 구현, 메뉴화면 구성 부분
 def forSelectInstance():
