@@ -114,6 +114,46 @@ def ListImages():
         )
 
 
+# 추가 구현 instance 부분
+def CreateImage():
+    print("\n")
+    print("Create AMI\n")
+    forSelectInstance()
+    selectInstance = str(input("인스턴스 id 입력 : "))
+    imgName = str(input("이미지 이름 입력 : "))
+    imgDesc = str(input("이미지 설명 추가 : "))
+
+    ec2client.create_image(
+        InstanceId=selectInstance, Name=imgName, Description=imgDesc, NoReboot=True
+    )
+
+
+def CopyImage():
+    print("\n")
+    print("Copy AMI\n")
+
+    setName = str(input("이름 설정 : "))
+    setDescription = str(input("설명 : "))
+    setAMIImage = str(input("AMI 이미지 선택 : "))
+    setRegion = str(input("지역 선택(기본 us-east-2) :"))
+
+    result = ec2client.copy_image(
+        Name=setName,
+        Description=setDescription,
+        SourceImageId=setAMIImage,
+        SourceRegion=setRegion,
+    )
+
+
+def DeleteImg():
+    print("\n")
+    print("Delete AMI Image\n")
+    forSelectImage()
+    selectAMI_ID = str(input("AMI Image id 입력 : "))
+
+    delImg = ec2client.deregister_image(ImageId=selectAMI_ID)
+
+
 # 기능함수 보조
 # 간단한 인스턴스 및 / 이미지 출력 리스트 함수 구현, 메뉴화면 구성 부분
 def forSelectInstance():
@@ -124,5 +164,15 @@ def forSelectInstance():
             "[Instance ID] " + instance.instance_id,
             " [Instance Name] " + instance.state.get("Name"),
         )
+    print("----------------------------------------------------------\n")
+    print("----------------------------------------------------------\n")
+
+
+def forSelectImage():
+    print("----------------------------------------------------------\n")
+    print("--------------------이미지 리스트-------------------------\n")
+    amiImage = ec2client.describe_images(Owners=["self"])
+    for image in amiImage["Images"]:
+        print("[ImageID] " + image["ImageId"], " [Name] " + image["Name"])
     print("----------------------------------------------------------\n")
     print("----------------------------------------------------------\n")

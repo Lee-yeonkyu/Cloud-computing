@@ -45,7 +45,12 @@ while True:
         function_defi.RebootInstance()
     elif Number == 8:
         function_defi.ListImages()
-
+    elif Number == 9:
+        function_defi.CreateImage()
+    elif Number == 11:
+        function_defi.DeleteImg()
+    elif Number == 14:
+        function_defi.CopyImage()
     elif Number == 99:
         break
     MainMenu()
