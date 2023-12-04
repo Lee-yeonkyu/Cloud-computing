@@ -13,7 +13,8 @@ def MainMenu():
     print("3. start instance            4. available regions\n")
     print("5. stop instance             6. create instance\n")
     print("7. reboot instance           8. list images\n")
-    print("                            99. quit\n")
+    print("9. create image             10. delete AMI Img\n")
+    print("11.copy Image               99. quit\n")
     print("--------------------------------------------------\n")
     print("--------------------------------------------------\n")
 
@@ -45,6 +46,12 @@ while True:
         function_defi.RebootInstance()
     elif Number == 8:
         function_defi.ListImages()
+    elif Number == 9:
+        function_defi.CreateImage()
+    elif Number == 10:
+        function_defi.DeleteImg()
+    elif Number == 11:
+        function_defi.CopyImage()
     elif Number == 99:
         break
     MainMenu()
